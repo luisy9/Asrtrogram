@@ -6,12 +6,14 @@ const multer = require('multer'); // file upload
 const fs = require('fs'); // file i/o
 const sharp = require('sharp'); // image editing
 const jwt = require('jsonwebtoken'); // Importa la llibreria jsonwebtoken per a generar i verificar JWT
+const cookieparser = require('cookie-parser'); //
 
 const SECRET_KEY = "vols-que-et-punxi-amb-un-punxo"; // to be used in jsonwebtoken creation
 
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use(cookieparser());
 
 const usersFile = 'users.json';
 const imagesFolder = 'uploads';
@@ -43,6 +45,7 @@ function writeUImages(data) {
 
 // Middleware per verificar el JWT en la cookie
 const checkToken = (req, res, next) => {
+    console.log(req.cookies);
     const token = req.cookies?.token; // Obté el token des de la cookie de la petició
     if (!token) {
         return res.status(401).json({ error: 'Unauthorized' }); // Retorna error 401 si no hi ha cap token
@@ -79,7 +82,7 @@ app.post('/api/login', (req, res) => {
 // REFRESH verifica si token és vàlid
 app.get('/api/refresh', checkToken, async (req, res) => {
     const users = readUsers();
-
+    console.log(req)
     const user = users.find(user => user.id === userId);
     if (!user || !bcrypt.compareSync(password, user.password)) {
         return res.status(401).json({ error: 'User not found' });

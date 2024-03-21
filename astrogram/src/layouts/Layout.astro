@@ -1,29 +1,49 @@
 ---
-
-import FooterNavBar from '../components/FooterNavBar.astro';
-import HeaderNavBar from '../components/HeaderNavBar.astro';
+import FooterNavBar from "../components/FooterNavBar.astro";
+import HeaderNavBar from "../components/HeaderNavBar.astro";
 
 interface Props {
-	title: string;
+  title: string;
 }
 
 const { title } = Astro.props;
+
+//Llamada a la api para ver si esta logueado el usuario
+const url = "http://localhost:3000/api/";
+const opcions = {
+  method: "GET",
+  credentials: "include",
+};
+
+const result = await fetch(`${url}/refresh`, {
+  method: "GET",
+  credentials: "include",
+})
+  .then((res) => console.log(res.json))
+  .then((user) => console.error(user))
+  .catch((error) => console.log(error));
+
+console.log(result);
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	
-	<body>
-		<HeaderNavBar />
-		<slot />
-		<FooterNavBar />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+
+  <body>
+    <div class="w-full lg:flex lg:justify-center">
+      <div class="md:w-full lg:w-[726px]">
+        <HeaderNavBar />
+        <slot />
+        <FooterNavBar />
+      </div>
+    </div>
+  </body>
 </html>

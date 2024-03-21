@@ -1,6 +1,8 @@
 ---
 
-import NavBar from '../components/NavBar.astro';
+import FooterNavBar from '../components/FooterNavBar.astro';
+import HeaderNavBar from '../components/HeaderNavBar.astro';
+
 interface Props {
 	title: string;
 }
@@ -18,8 +20,10 @@ const { title } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
+	
 	<body>
+		<HeaderNavBar />
 		<slot />
-		<NavBar />
+		<FooterNavBar />
 	</body>
 </html>

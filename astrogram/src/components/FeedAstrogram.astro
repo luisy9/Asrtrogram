@@ -1,0 +1,30 @@
+---
+import { imageConfig } from "astro:assets";
+import Picture from "./Picture.astro";
+
+const url = "http://localhost:3000/api";
+
+let imagesUser = [];
+
+const token = Astro.cookies.get("cookie").value;
+const opcions = {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  },
+};
+
+    try {
+      const images = await fetch(`${url}/images/allimages`, opcions);
+      imagesUser = await images.json();
+    } catch (error) {
+      console.log(error);
+    }
+---
+
+<div class="">
+  <div class="flex flex-col gap-4 h-screen bg-sky-400">
+    {imagesUser?.map((image) => <Picture image={image} />)}
+  </div>
+</div>

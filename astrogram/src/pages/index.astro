@@ -1,12 +1,18 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Card from "../components/Card.astro";
+import FeedAstrogram from '../components/FeedAstrogram.astro'
+
+
+if(!Astro.cookies.has('cookie')){
+	return Astro.redirect('/login')
+}
 ---
 
 <Layout title="Welcome to Astrogram">
   <main>
 	<div class="">
 		<h1 class="text-black">Astrogram</h1>
+		<FeedAstrogram />
 	</div>
   </main>
 </Layout>

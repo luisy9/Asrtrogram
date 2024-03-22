@@ -18,5 +18,10 @@
     "id": "3915b252-6724-4e3a-908f-1a946837b332",
     "name": "luis",
     "password": "$2a$08$V4FKB6DcVAvwz7XI1y96rOk9PL7xpKV5aOlN9i7QafYxI9RA.DQ2."
+  },
+  {
+    "id": "cd410b04-c463-4cf9-93aa-74bd0c838e27",
+    "name": "luisi",
+    "password": "$2a$08$npdnQWos9e6nhiXzm1GrUuQGYcejwEXl2elB3zSMiFrjB4uSONXIS"
   }
 ]

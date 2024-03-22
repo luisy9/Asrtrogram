@@ -1,15 +1,52 @@
 ---
+
+if (Astro.request.method === "POST") {
+  try {
+    const data = await Astro.request.formData();
+    const name = data.get("name");
+    const password = data.get("password");
+
+    const url = "http://localhost:3000/api";
+
+    const login = await fetch(`${url}/register`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name: name, password: password }),
+    })
+      .then((res) => res.json())
+      .then((user) => console.log(user))
+      .catch((error) => console.log(error));
+
+    console.log(login);
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+  }
+}
+
 ---
 
-
-<div class="">
-    <div class="">
+<div class="bg-[#101826]">
+  <div class="bg-[#101826] h-screen">
+    <div class="bg-sky-500 flex justify-center items-center w-full h-full">
+      <form method="POST">
         <div class="">
-            <form method="POST">
-                <div class=""></div>
-                <div class=""></div>
-                <div class=""></div>
-            </form>
+            <h1 class="text-6xl">Register</h1>
         </div>
+        <div class="py-2">
+          <input type="text" name="name" class="h-12 w-full" />
+        </div>
+        <div class="py-2">
+          <input type="text" name="password" class="h-12 w-full" />
+        </div>
+        <div class="">
+          <button class="px-3 py-1 bg-green-500 w-full text-2xl">Registrarse</button>
+        </div>
+      </form>
     </div>
+  </div>
 </div>

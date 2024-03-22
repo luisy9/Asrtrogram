@@ -23,8 +23,7 @@ const result = await fetch(`${url}/refresh`, {
   .then((user) => console.error(user))
   .catch((error) => console.log(error));
 
-console.log(result)
-
+console.log(result);
 ---
 
 <!doctype html>
@@ -34,11 +33,17 @@ console.log(result)
     <meta name="description" content="Astro description" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Varela&display=swap"
+      rel="stylesheet"
+    />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
 
-  <body>
+  <body class="font-sans">
     <div class="w-full lg:flex lg:justify-center">
       <div class="md:w-full lg:w-[726px]">
         <HeaderNavBar />
@@ -48,3 +53,11 @@ console.log(result)
     </div>
   </body>
 </html>
+
+<style is:global>
+  * {
+    font-family: "Varela", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+</style>

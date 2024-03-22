@@ -2,6 +2,8 @@
 // import FooterNavBar from "../components/FooterNavBar.astro";
 import FooterNavBar from '../components/FooterNavBar.jsx';
 import HeaderNavBar from "../components/HeaderNavBar.astro";
+import Index from '../pages/index.astro';
+// import testAstro from '../'
 
 interface Props {
   title: string;
@@ -47,9 +49,7 @@ console.log(result);
   <body class="font-sans">
     <div class="w-full lg:flex lg:justify-center">
       <div class="md:w-full lg:w-[726px]">
-        <HeaderNavBar />
         <slot />
-        <FooterNavBar client:load/>
       </div>
     </div>
   </body>

@@ -1,5 +1,4 @@
-const FooterNavBar = () => {
-
+const FooterNavBar = ({ setPopUp, popUp }) => {
   return (
     <>
       <nav class="bg-white border-gray-200 dark:bg-[#0F1218] fixed bottom-0 w-full">
@@ -58,7 +57,7 @@ const FooterNavBar = () => {
         md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white
          md:dark:hover:text-blue-500 dark:hover:bg-gray-700
          dark:hover:text-white md:dark:hover:bg-transparent"
-            onClick={() => window.location.href = '/upload'}
+            onClick={() => setPopUp(true)}
           >
             <svg
               class="w-6 h-6 text-gray-800 dark:text-white"
@@ -132,7 +131,7 @@ const FooterNavBar = () => {
             </div>
           </a>
         </div>
-      </nav> 
+      </nav>
     </>
   );
 };

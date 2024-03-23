@@ -6,21 +6,7 @@ interface Props {
 const { title } = Astro.props;
 
 //Llamada a la api para ver si esta logueado el usuario
-const url = "http://localhost:3000/api/";
-const opcions = {
-  method: "GET",
-  credentials: "include",
-};
 
-const result = await fetch(`${url}/refresh`, {
-  method: "GET",
-  credentials: "include",
-})
-  .then((res) => console.log(res.json))
-  .then((user) => console.error(user))
-  .catch((error) => console.log(error));
-
-console.log(result);
 ---
 
 <!doctype html>

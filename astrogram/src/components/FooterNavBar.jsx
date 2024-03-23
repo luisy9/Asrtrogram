@@ -1,7 +1,7 @@
-const FooterNavBar = ({ setPopUp, popUp }) => {
+const FooterNavBar = ({ popUp, setPopUp }) => {
   return (
     <>
-      <nav class="bg-white border-gray-200 dark:bg-[#0F1218] fixed bottom-0 w-full">
+      <nav class="bg-white border-gray-200 dark:bg-[#0F1218] h-40 fixed bottom-0 w-full">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-3">
           <div
             class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent

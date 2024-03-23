@@ -6,21 +6,21 @@ const url = "http://localhost:3000/api";
 
 let imagesUser = [];
 
-const token = Astro.cookies.get("cookie").value;
-const opcions = {
-  method: "GET",
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
-  },
-};
+const token = Astro.cookies.get("token").value;
+console.log(token)
 
-    try {
-      const images = await fetch(`${url}/images/allimages`, opcions);
-      imagesUser = await images.json();
-    } catch (error) {
-      console.log(error);
-    }
+try {
+  const images = await fetch(`${url}/allimages`, {
+    method: "GET",
+    // headers: {
+      // "Content-Type": "application/json",
+      // Authorization: `Bearer ${token}`,
+    // },
+  });
+  
+} catch (error) {
+  // console.log(error, "dadadas");
+}
 ---
 
 <div class="">

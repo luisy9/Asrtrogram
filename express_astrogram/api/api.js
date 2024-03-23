@@ -44,22 +44,38 @@ function writeUImages(data) {
 // Middleware per verificar el JWT en la cookie
 const checkToken = (req, res, next) => {
   let token = req.cookies?.token; // Obté el token des de la cookie de la petició
-  if (!token) token = req.headers["authorization"]?.split(" ")[1]; //obté token de bearer auth
-
-  console.log(token)
+  console.log(req.cookies);
   if (!token) {
-    return res.status(401).json({ error: "Unauthorized" }); // Retorna error 401 si no hi ha cap token
+    token = req.headers["authorization"]?.split(" ")[1]; // Retorna error 401 si no hi ha cap token
   }
-
   try {
     const decodedToken = jwt.verify(token, SECRET_KEY); // Verifica el token utilitzant la clau secreta
     req.userId = decodedToken.userId; // Estableix l'ID d'usuari a l'objecte de la petició
-    req.userName = decodedToken.userName; // Estableix l'ID d'usuari a l'objecte de la petició
     next(); // Passa al següent middleware
   } catch (error) {
     return res.status(401).json({ error: "Invalid token" }); // Retorna error 401 si el token és invàlid
   }
 };
+// const checkToken = (req, res, next) => {
+//     let token = req.cookies?.token; // Obté el token des de la cookie de la petició
+//     console.log(req.headers);
+
+//   if (!token) token = req.headers["authorization"]?.split(" ")[1]; //obté token de bearer auth
+//   console.log(token)
+
+//   if (!token) {
+//     return res.status(401).json({ error: "Unauthorized" }); // Retorna error 401 si no hi ha cap token
+//   }
+
+//   try {
+//     const decodedToken = jwt.verify(token, SECRET_KEY); // Verifica el token utilitzant la clau secreta
+//     req.userId = decodedToken.userId; // Estableix l'ID d'usuari a l'objecte de la petició
+//     req.userName = decodedToken.userName; // Estableix l'ID d'usuari a l'objecte de la petició
+//     next(); // Passa al següent middleware
+//   } catch (error) {
+//     return res.status(401).json({ error: "Invalid token" }); // Retorna error 401 si el token és invàlid
+//   }
+// };
 
 // LOGIN
 // Endpoint per iniciar sessió d'un usuari
@@ -87,11 +103,11 @@ app.post("/api/login", (req, res) => {
 });
 
 // REFRESH verifica si token és vàlid
-app.get("/api/refresh", async (req, res) => {
+app.get("/api/refresh", checkToken, async (req, res) => {
   const users = readUsers();
-  console.log(req);
+
   const user = users.find((user) => user.id === userId);
-  if (!user || !bcrypt.compareSync(password, user.password)) {
+  if (!user) {
     return res.status(401).json({ error: "User not found" });
   }
 
@@ -118,7 +134,7 @@ app.post("/api/register", (req, res) => {
 // Configuració de multer per gestionar la pujada de fitxers
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "tmp"); // Especifica la carpeta de destinació dels fitxers pujats
+    cb(null, "uploads/"); // Especifica la carpeta de destinació dels fitxers pujats
   },
   filename: function (req, file, cb) {
     cb(null, `${Date.now()}_${file.originalname}`); // Assigna un nom únic als fitxers pujats
@@ -127,21 +143,23 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage }); // Configura multer per a gestionar la pujada d'un únic fitxer amb el camp 'foto'
 
+// app.post("/api/hola", async (req, res, next) => {
+//   console.log(req);
+// });
 // Funció per pujar una imatge amb hashtags
 app.post(
-  "/api/upload",
+  "/api/uploadimg",
+  checkToken,
   upload.single("image"),
-  async (req, res) => {
+  async (req, res, next) => {
     const { userId, hashtags } = req.body;
     const image = req.file;
-
-    console.log(userId, hashtags,image)
 
     // Redimensionar la imatge abans de desar-la
     try {
       await sharp(image.path)
         .resize({ width: 800 })
-        .toFile(`${imagesFolder}/${image.filename}`)
+        .toFile(`${imagesFolder}/resize/${newImg}`)
         .then(async () => {
           // Eliminar la imatge original després de redimensionar-la i desar-la
           await fs.unlink(image.path, (err) =>
@@ -155,7 +173,12 @@ app.post(
 
     // Guardar la informació de la imatge al fitxer images.json
     const images = readImages();
-    images.push({ userId: req.userId, filename: image.filename, hashtags });
+    images.push({
+      userId: req.userId,
+      date: new Date(),
+      filename: image.filename,
+      hashtags,
+    });
     fs.writeFileSync(imagesFile, JSON.stringify(images, null, 2));
 
     res.json({ message: "Image uploaded successfully" });
@@ -177,10 +200,10 @@ app.get("/api/user/:userId/images", checkToken, (req, res) => {
 });
 
 // Enpooint para obtener todas las imagenes
-app.get("/api/images/allimages" ,(req, res, next) => {
-    const allImages = readImages();
-    res.json(allImages);
-  });
+app.get("/api/allimages", (req, res, next) => {
+  const allImages = readImages();
+  res.json(allImages);
+});
 
 // Endpoint per obtenir les imatges per hashtag
 app.get("/api/images/:hashtag", checkToken, (req, res) => {
@@ -190,8 +213,6 @@ app.get("/api/images/:hashtag", checkToken, (req, res) => {
   );
   res.json(hashtagImages);
 });
-
-
 
 //@TODO
 //Crear ruta estàtica per servir imatges a /uploads

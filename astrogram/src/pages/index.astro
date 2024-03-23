@@ -1,13 +1,31 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import HeaderNavBar from '../components/HeaderNavBar.astro';
-import FooterComponent from '../components/FooterComponent.jsx';
+import Layout from "../layouts/Layout.astro";
+import HeaderNavBar from "../components/HeaderNavBar.astro";
+import FooterComponent from "../components/FooterComponent.jsx";
+import FeedAstrogram from "../components/FeedAstrogram.astro";
+
+if (!Astro.cookies.has("token")) {
+  return Astro.redirect("/Login");
+}
+
+const token = Astro.cookies.get("token").value;
+
+//Refresh para ver si la cookie es valida
+const url = "http://localhost:3000/api";
+// fetch(`${url}/refresh`, {
+//   method: 'GET',
+//   headers: { Authorization: `Bearer ${token}` },
+// })
+//   .then(res => res.json())
+//     .then(refresh => console.log(refresh, 'dadas'))
+//       .catch(error => console.log(error, 'hhhh'))
+//
 ---
 
 <Layout title="Welcome to Astrogram">
   <main class="">
     <HeaderNavBar />
-
-    <FooterComponent />
+    <FeedAstrogram />
+    <FooterComponent client:load />
   </main>
 </Layout>

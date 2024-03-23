@@ -2,7 +2,7 @@ import { useState } from "react"
 import FooterNavBar from "./FooterNavBar.jsx"
 import PopUpUpload from "./PopUpUpload.jsx";
 
-export const Astrogram = () => {
+export const FooterComponent = () => {
 
     const [popUp, setPopUp] = useState(false);
     return (
@@ -17,4 +17,4 @@ export const Astrogram = () => {
     )
 }
 
-export default Astrogram
+export default FooterComponent

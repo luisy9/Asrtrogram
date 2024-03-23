@@ -1,10 +1,4 @@
 ---
-// import FooterNavBar from "../components/FooterNavBar.astro";
-import FooterNavBar from '../components/FooterNavBar.jsx';
-import HeaderNavBar from "../components/HeaderNavBar.astro";
-import Index from '../pages/index.astro';
-// import testAstro from '../'
-
 interface Props {
   title: string;
 }
@@ -47,18 +41,8 @@ console.log(result);
   </head>
 
   <body class="font-sans">
-    <div class="w-full lg:flex lg:justify-center">
-      <div class="md:w-full lg:w-[726px]">
-        <slot />
-      </div>
+    <div class="w-screen h-screen">
+      <slot />
     </div>
   </body>
 </html>
-
-<style is:global>
-  * {
-    font-family: "Varela", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-</style>

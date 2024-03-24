@@ -55,7 +55,7 @@ export const PopUpUpload = ({ setPopUp }) => {
       const response = await res.json();
       console.log(response)
     } catch (error) {
-      console.log(error);
+      console.log(error.json());
     }
   };
 

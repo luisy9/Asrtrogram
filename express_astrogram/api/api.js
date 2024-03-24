@@ -20,13 +20,12 @@ const imagesFolder = "uploads";
 const imagesFile = "images.json";
 
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4321');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:4321");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
   next();
 });
-
 
 // Funció per llegir els usuaris des del fitxer JSON
 function readUsers() {
@@ -141,8 +140,6 @@ app.post(
     const { userId } = req;
     const image = req.file;
 
-    console.log(hashtags, userId, image.path);
-
     // Redimensionar la imatge abans de desar-la
     try {
       await sharp(image.path)
@@ -156,11 +153,11 @@ app.post(
         });
     } catch (error) {
       //throw error
-      console.log("hola?");
       return res.status(500).json({ error: "Failed to process image xx" });
     }
 
     // Guardar la informació de la imatge al fitxer images.json
+    console.log(hashtags)
     const images = readImages();
     images.push({
       userId: userId,
@@ -179,6 +176,13 @@ app.post(
 app.get("/api/images", checkToken, (req, res) => {
   const userId = req.userId;
   const userImages = readImages().filter((image) => image.userId === userId);
+  console.log(userImages);
+  res.json(userImages);
+});
+
+app.get("/api/users/:id", checkToken, (req, res, next) => {
+  const { id } = req.params;
+  const userImages = readUsers().find(img => img.id === id)
   res.json(userImages);
 });
 

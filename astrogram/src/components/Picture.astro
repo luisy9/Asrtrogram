@@ -1,14 +1,52 @@
 ---
-const {image} = Astro.props;
-console.log(image)
-const url = `http://localhost:3000/img/${image.filename}`;
+const { image } = Astro.props;
+
+const { userId, hashtags } = image;
+const url = "http://localhost:3000/api";
 
 //Fetch para mirar el nombre del usuario de esa foto
+let id = "";
+try {
+  const token = Astro.cookies.get("token").value;
+  const resUserId = await fetch(`${url}/users/` + userId, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  id = await resUserId.json();
+} catch (error) {
+  console.log(error);
+}
 
 //fn para imprimir los hashtags de esa foto
+function handleHashTagsFormat() {
+  let hashtagsAll = [];
+  hashtagsAll = [image.hashtags];
+
+  return hashtags.replace(/,/g, "");
+
+  // const newHashTags = hashtagsAll.map((e, index) => {
+  //   return
+  // if (hashtags.includes(",")) {
+  //   for (let i = 0; i < e.length; i++) {
+  //     if (e[i] === ",") {
+  //       return e.slice(0, i) + e.slice(i + 1);
+  //     }
+  //   }
+  //   return e;
+  // }
+  // });
+
+  // console.log(newHashTags);
+  //   console.log(newHashTags);
+  // return hashtags.replace(/#(\w+)/g, '<a href="/hashtag/$1">#$1</a>');
+}
 ---
 
 <div class="bg-red-500 h-full">
-    <h1>{image.userId}</h1>
-    <img src={url} alt="imag" />
+  <h1>{id.name}</h1>
+  <img src={`http://localhost:3000/img/${image.filename}`} alt="imag" />
+  <a href={`/hashtags/`}><Fragment set:html={hashtags?.replace(/,/g, " ")} /></a>
 </div>

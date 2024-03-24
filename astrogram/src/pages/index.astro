@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import HeaderNavBar from "../components/HeaderNavBar.astro";
 import FooterComponent from "../components/FooterComponent.jsx";
 import FeedAstrogram from "../components/FeedAstrogram.astro";
+import PopUpUpload from "../components/PopUpUpload";
 
 if (!Astro.cookies.has("token")) {
   return Astro.redirect("/Login");
@@ -25,7 +26,7 @@ const url = "http://localhost:3000/api";
 <Layout title="Welcome to Astrogram">
   <main class="">
     <HeaderNavBar />
-    <FeedAstrogram />
+      <FeedAstrogram />
     <FooterComponent client:load />
   </main>
 </Layout>

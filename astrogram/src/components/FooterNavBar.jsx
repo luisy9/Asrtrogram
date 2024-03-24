@@ -1,16 +1,16 @@
 const FooterNavBar = ({ popUp, setPopUp }) => {
   return (
     <>
-      <nav class="bg-white border-gray-200 dark:bg-[#0F1218] h-40 fixed bottom-0 w-full">
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-3">
+      <nav className="bg-white border-gray-200 dark:bg-[#0F1218] h-40 fixed bottom-0 w-full">
+        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-3">
           <div
-            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent
+            className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent
         md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white
          md:dark:hover:text-blue-500 dark:hover:bg-gray-700
          dark:hover:text-white md:dark:hover:bg-transparent"
           >
             <svg
-              class="w-6 h-6 text-gray-800 dark:text-white"
+              className="w-6 h-6 text-gray-800 dark:text-white"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -28,13 +28,13 @@ const FooterNavBar = ({ popUp, setPopUp }) => {
             </svg>
           </div>
           <div
-            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent
+            className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent
         md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white
          md:dark:hover:text-blue-500 dark:hover:bg-gray-700
          dark:hover:text-white md:dark:hover:bg-transparent"
           >
             <svg
-              class="w-6 h-6 text-gray-800 dark:text-white"
+              className="w-6 h-6 text-gray-800 dark:text-white"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -53,14 +53,14 @@ const FooterNavBar = ({ popUp, setPopUp }) => {
 
           {/* CAMERA ICON */}
           <div
-            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent
+            className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent
         md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white
          md:dark:hover:text-blue-500 dark:hover:bg-gray-700
          dark:hover:text-white md:dark:hover:bg-transparent"
             onClick={() => setPopUp(true)}
           >
             <svg
-              class="w-6 h-6 text-gray-800 dark:text-white"
+              className="w-6 h-6 text-gray-800 dark:text-white"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -83,13 +83,13 @@ const FooterNavBar = ({ popUp, setPopUp }) => {
             </svg>
           </div>
           <div
-            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent
+            className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent
         md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white
          md:dark:hover:text-blue-500 dark:hover:bg-gray-700
          dark:hover:text-white md:dark:hover:bg-transparent"
           >
             <svg
-              class="w-6 h-6 text-gray-800 dark:text-white"
+              className="w-6 h-6 text-gray-800 dark:text-white"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -108,13 +108,13 @@ const FooterNavBar = ({ popUp, setPopUp }) => {
           </div>
           <a href="/Login">
             <div
-              class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent
+              className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent
       md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white
        md:dark:hover:text-blue-500 dark:hover:bg-gray-700
        dark:hover:text-white md:dark:hover:bg-transparent"
             >
               <svg
-                class="w-6 h-6 text-gray-800 dark:text-white"
+                className="w-6 h-6 text-gray-800 dark:text-white"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"

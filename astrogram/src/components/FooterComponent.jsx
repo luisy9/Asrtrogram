@@ -7,8 +7,8 @@ export const FooterComponent = () => {
 
   return (
     <main>
-      <div className='w-full bg-red-500 h-full'>
-        {popUp ? <PopUpUpload setPopUp={setPopUp} /> : null}
+      {popUp ? <PopUpUpload setPopUp={setPopUp} /> : null}
+      <div className='w-full h-full'>
         <FooterNavBar popUp={popUp} setPopUp={setPopUp} />
       </div>
     </main>

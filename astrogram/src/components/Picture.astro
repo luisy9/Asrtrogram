@@ -1,9 +1,11 @@
 ---
 const {image} = Astro.props;
-const url = `http://localhost:3000/uploads/resize/${image.filename}`;
+console.log(image)
+const url = `http://localhost:3000/img/${image.filename}`;
 
-// const img = await fetch(`${url}/${image.filename}`);
-// let images = await img.json();
+//Fetch para mirar el nombre del usuario de esa foto
+
+//fn para imprimir los hashtags de esa foto
 ---
 
 <div class="bg-red-500 h-full">

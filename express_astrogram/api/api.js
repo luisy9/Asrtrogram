@@ -206,7 +206,7 @@ app.get("/api/images/:hashtag", checkToken, (req, res) => {
 
 //@TODO
 //Crear ruta estàtica per servir imatges a /uploads
-app.use("/uploads/resize/:img", express.static(__dirname + `/uploads/resize`));
+app.use("/img", express.static(__dirname + `/uploads/resize`));
 
 // Inicialitzar el servidor
 const PORT = process.env.PORT || 3000;

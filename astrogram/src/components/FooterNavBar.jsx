@@ -1,32 +1,35 @@
 const FooterNavBar = ({ popUp, setPopUp }) => {
   return (
     <>
-      <nav className="bg-white border-gray-200 dark:bg-[#0F1218] h-40 fixed bottom-0 w-full">
+      <nav className="bg-white border-gray-200 dark:bg-[#0F1218] 
+        h-20 bottom-0 fixed w-full">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-3">
-          <div
-            className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent
+          <a href="/">
+            <div
+              className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent
         md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white
          md:dark:hover:text-blue-500 dark:hover:bg-gray-700
          dark:hover:text-white md:dark:hover:bg-transparent"
-          >
-            <svg
-              className="w-6 h-6 text-gray-800 dark:text-white"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              fill="none"
-              viewBox="0 0 24 24"
             >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2.5"
-                d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"
-              ></path>
-            </svg>
-          </div>
+              <svg
+                className="w-6 h-6 text-gray-800 dark:text-white"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2.5"
+                  d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"
+                ></path>
+              </svg>
+            </div>
+          </a>
           <div
             className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent
         md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white

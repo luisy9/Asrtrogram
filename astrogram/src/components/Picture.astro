@@ -15,24 +15,68 @@ try {
       Authorization: `Bearer ${token}`,
     },
   });
-
   id = await resUserId.json();
-  console.log(id)
 } catch (error) {
   console.log(error);
 }
 ---
 
-<div class="bg-red-500 h-full">
-  <a href={`/user/${id.id}`}>{id.name}</a>
-  <img src={`http://localhost:3000/img/${image.filename}`} alt="imag" />
-  {
-    hashtags?.split(",").map((hashtag: string) => {
-      return (
-        <div class="">
-          <a href={`/hashtags/${hashtag.slice(1)}`}>{hashtag}</a>
-        </div>
-      );
-    })
-  }
+<div class="bg-[#0F1218] h-screen px-2 py-4">
+  <div class="flex gap-1 items-center py-2">
+    <svg
+      class="w-7 h-7 fill-white"
+      width="24px"
+      height="24px"
+      stroke-width="1.5"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      color="#000000"
+      ><path
+        d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2Z"
+        stroke="#000000"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"></path><path
+        d="M4.271 18.3457C4.271 18.3457 6.50002 15.5 12 15.5C17.5 15.5 19.7291 18.3457 19.7291 18.3457"
+        stroke="#000000"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"></path><path
+        d="M12 12C13.6569 12 15 10.6569 15 9C15 7.34315 13.6569 6 12 6C10.3431 6 9 7.34315 9 9C9 10.6569 10.3431 12 12 12Z"
+        stroke="#000000"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"></path></svg
+    >
+    <a href={`/user/${id.id}`} class="text-white">{id.name}</a>
+  </div>
+  <img
+    src={`http://localhost:3000/img/${image.filename}`}
+    alt="imag"
+    class="border-none rounded-md"
+  />
+  <div class="py-2 text-white flex gap-3 items-center">
+    {image.comentario ? (
+      <p>{id.name} </p><p class="font-extralight antialiased text-sm">{image.comentario}</p>
+    ) : null}
+  </div>
+  <div class="flex gap-2 pt-2">
+    {
+      hashtags?.split(",").map((hashtag: string) => {
+        return (
+          <div class="">
+            {hashtag.length > 0 ? (
+              <a
+                href={`/hashtags/${hashtag.slice(1)}`}
+                class="text-white px-2 py-1 border rounded-md"
+              >
+                {hashtag}
+              </a>
+            ) : null}
+          </div>
+        );
+      })
+    }
+  </div>
 </div>

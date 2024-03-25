@@ -136,7 +136,7 @@ app.post(
   checkToken,
   upload.single("image"),
   async (req, res, next) => {
-    const { hashtags } = req.body;
+    const { hashtags, descripcion } = req.body;
     const { userId } = req;
     const image = req.file;
 
@@ -157,15 +157,14 @@ app.post(
     }
 
     // Guardar la informació de la imatge al fitxer images.json
-    console.log(hashtags)
     const images = readImages();
     images.push({
       userId: userId,
       date: new Date(),
       filename: image.filename,
+      comentario: descripcion,
       hashtags: hashtags,
     });
-    console.log(hashtags);
     fs.writeFileSync(imagesFile, JSON.stringify(images, null, 2));
 
     res.json({ message: "Image uploaded successfully" });

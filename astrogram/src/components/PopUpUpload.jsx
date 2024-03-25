@@ -4,10 +4,16 @@ export const PopUpUpload = ({ setPopUp }) => {
   const [hashtag, setHashTag] = useState([]);
   const [errorValidation, setErrorValidation] = useState(null);
   const [nameHashtag, setNameHashtag] = useState("");
+  const [ descripcion, setDescription ] = useState('');
+
 
   const onChangeInput = (value) => {
     setNameHashtag(value);
   };
+
+  const onChangeTextArea = (value) => {
+    setDescription(value);
+  }
 
   const addHashTag = () => {
     const name = nameHashtag;
@@ -38,6 +44,7 @@ export const PopUpUpload = ({ setPopUp }) => {
     const file = event.target?.elements?.image.files[0];
     data.append("image", file);
     data.append("hashtags", tags);
+    data.append("descripcion", descripcion);
 
     //Hacer la peticion para hacer el post de upload de la imagen
     const opcions = {
@@ -95,6 +102,9 @@ export const PopUpUpload = ({ setPopUp }) => {
               >
                 Add +
               </div>
+            </div>
+            <div className="pt-2">
+              <textarea className="border rounded-md w-full" onChange={() => onChangeTextArea(event.target.value)}></textarea>
             </div>
 
             {hashtag.map((e, index) => {

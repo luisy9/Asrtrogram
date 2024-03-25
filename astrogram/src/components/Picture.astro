@@ -24,7 +24,7 @@ try {
 ---
 
 <div class="bg-red-500 h-full">
-  <a href={`/user/${id.name}`}>{id.name}</a>
+  <a href={`/user/${id.id}`}>{id.name}</a>
   <img src={`http://localhost:3000/img/${image.filename}`} alt="imag" />
   {
     hashtags?.split(",").map((hashtag: string) => {

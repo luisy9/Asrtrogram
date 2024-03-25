@@ -1,0 +1,33 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Picture from "../../components/Picture.astro";
+const { hashtag } = Astro.params;
+
+const url = 'http://localhost:3000/api';
+const token = Astro.cookies.get('token').value;
+
+let imagesWithHashTag = [];
+let allImagesWithHashTag = await fetch(`${url}/images/${hashtag}`, {
+    method: 'GET',
+    headers: {
+        Authorization: `Bearer ${token}`,
+    }
+})
+
+imagesWithHashTag = await allImagesWithHashTag.json();
+
+---
+
+<Layout title="Welcome to Astrogram">
+  <div class="">
+    {hashtag}
+
+    {
+        imagesWithHashTag?.map(image => {
+            return(
+                <Picture image={image} />
+            )
+        })
+    }
+  </div>
+</Layout>

@@ -17,19 +17,20 @@ try {
   });
 
   id = await resUserId.json();
+  console.log(id)
 } catch (error) {
   console.log(error);
 }
 ---
 
 <div class="bg-red-500 h-full">
-  <h1>{id.name}</h1>
+  <a href={`/user/${id.name}`}>{id.name}</a>
   <img src={`http://localhost:3000/img/${image.filename}`} alt="imag" />
   {
-    hashtags?.split(",").map((item: string) => {
+    hashtags?.split(",").map((hashtag: string) => {
       return (
         <div class="">
-          <a href={`/hashtag/${item}`}>{item}</a>
+          <a href={`/hashtags/${hashtag.slice(1)}`}>{hashtag}</a>
         </div>
       );
     })

@@ -1,0 +1,11 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const { user } = Astro.params;
+---
+
+<Layout title="Welcome to Astrogram">
+  <div class="">
+    <h1>{user}</h1>
+  </div>
+</Layout>

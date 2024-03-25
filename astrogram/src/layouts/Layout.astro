@@ -1,4 +1,7 @@
 ---
+import HeaderNavBar from "../components/HeaderNavBar.astro";
+import FooterComponent from "../components/FooterComponent.jsx";
+
 interface Props {
   title: string;
 }
@@ -6,7 +9,6 @@ interface Props {
 const { title } = Astro.props;
 
 //Llamada a la api para ver si esta logueado el usuario
-
 ---
 
 <!doctype html>
@@ -28,7 +30,9 @@ const { title } = Astro.props;
 
   <body class="font-sans">
     <div class="w-screen h-screen">
-      <slot />
+      <HeaderNavBar />
+        <slot />
+      <FooterComponent client:load />
     </div>
   </body>
 </html>

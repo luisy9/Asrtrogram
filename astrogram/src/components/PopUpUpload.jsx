@@ -4,8 +4,7 @@ export const PopUpUpload = ({ setPopUp }) => {
   const [hashtag, setHashTag] = useState([]);
   const [errorValidation, setErrorValidation] = useState(null);
   const [nameHashtag, setNameHashtag] = useState("");
-  const [ descripcion, setDescription ] = useState('');
-
+  const [descripcion, setDescription] = useState("");
 
   const onChangeInput = (value) => {
     setNameHashtag(value);
@@ -13,24 +12,28 @@ export const PopUpUpload = ({ setPopUp }) => {
 
   const onChangeTextArea = (value) => {
     setDescription(value);
-  }
+  };
 
   const addHashTag = () => {
     const name = nameHashtag;
 
     if (name.length > 0) {
-      const isError = name.includes(" ") || name.includes(",");
+      const isError = name.includes(",");
       setErrorValidation(isError);
     } else {
-      setNameHashtag("#");
+      setNameHashtag("");
     }
   };
 
   useEffect(() => {
     if (!errorValidation) {
+      // const separaLosHashtags = nameHashtag
+      //   .split("#")
+      //   .map((e) => "#" + e)
+      //   .filter((e, index) => index !== 0);
       setHashTag([...hashtag, nameHashtag]);
       setErrorValidation(true);
-      setNameHashtag("#");
+      setNameHashtag("");
     }
   }, [errorValidation]);
 
@@ -44,13 +47,14 @@ export const PopUpUpload = ({ setPopUp }) => {
     const file = event.target?.elements?.image.files[0];
     data.append("image", file);
     data.append("hashtags", tags);
+    console.log(hashtag);
     data.append("descripcion", descripcion);
 
     //Hacer la peticion para hacer el post de upload de la imagen
     const opcions = {
       method: "POST",
       body: data,
-      credentials: 'include'
+      credentials: "include",
     };
 
     try {
@@ -60,63 +64,69 @@ export const PopUpUpload = ({ setPopUp }) => {
         .catch((error) => console.log(error));
 
       const response = await res.json();
-      console.log(response)
     } catch (error) {
       console.log(error.json());
     }
   };
 
   return (
-    <div className="flex justify-center items-center h-full absolute top-0 z-50">
-      <div className="bg-white w-full h-full">
-        <div className="flex justify-between px-5 w-full bg-red-500">
-          <h1 className="text-xl">Upload Image</h1>
-          <div className="cursor-pointer" onClick={() => setPopUp(false)}>
-            X
+    <div className="fixed">
+      <div className="flex justify-center items-center h-full fixed top-0 z-50">
+        <div className="bg-white w-full h-full">
+          <div className="flex justify-between px-5 w-full bg-red-500">
+            <h1 className="text-xl">Upload Image</h1>
+            <div className="cursor-pointer" onClick={() => setPopUp(false)}>
+              X
+            </div>
           </div>
-        </div>
 
-        <div className="bg-sky-500">
-          <form onSubmit={onSubmitImage} encType="multipart/form-data">
-            <div className="">
-              <input
-                type="file"
-                className=""
-                name="image"
-                accept="image/*"
-                capture="environment"
-              />
-            </div>
-
-            <div className="flex gap-2">
-              <label htmlFor="">Hashtag:</label>
-              <input
-                type="text"
-                className=""
-                value={nameHashtag}
-                onChange={() => onChangeInput(event.target.value)}
-              />
-              <div
-                className="bg-green-500 text-white px-2 py-1"
-                onClick={addHashTag}
-              >
-                Add +
+          <div className="bg-sky-500">
+            <form onSubmit={onSubmitImage} encType="multipart/form-data">
+              <div className="">
+                <input
+                  type="file"
+                  className=""
+                  name="image"
+                  accept="image/*"
+                  capture="environment"
+                />
               </div>
-            </div>
-            <div className="pt-2">
-              <textarea className="border rounded-md w-full" onChange={() => onChangeTextArea(event.target.value)}></textarea>
-            </div>
 
-            {hashtag.map((e, index) => {
-              return (
-                <>
-                  <p key={index}>{e}</p>
-                </>
-              );
-            })}
+              <div className="flex gap-2">
+                <label htmlFor="">Hashtag:</label>
+                <input
+                  type="text"
+                  className=""
+                  value={nameHashtag}
+                  onChange={() => onChangeInput(event.target.value)}
+                />
+                <div
+                  className="bg-green-500 text-white px-2 py-1"
+                  onClick={addHashTag}
+                >
+                  Add +
+                </div>
+              </div>
+              <div className="pt-2">
+                <textarea
+                  className="border rounded-md w-full"
+                  onChange={() => onChangeTextArea(event.target.value)}
+                ></textarea>
+              </div>
 
-            <button type="submit" className="border px-4 py-1 rounded-md">Enviar</button>
-          </form>
+              {hashtag.map((e, index) => {
+                return (
+                  <>
+                    <p key={index}>{e}</p>
+                  </>
+                );
+              })}
+
+              <button type="submit" className="border px-4 py-1 rounded-md">
+                Enviar
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>

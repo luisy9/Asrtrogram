@@ -91,8 +91,9 @@ app.post("/api/login", (req, res) => {
 
 // REFRESH verifica si token és vàlid
 app.get("/api/refresh", checkToken, async (req, res) => {
-  const users = readUsers();
+  const { userId} = req
 
+  const users = readUsers();
   const user = users.find((user) => user.id === userId);
   if (!user) {
     return res.status(401).json({ error: "User not found" });

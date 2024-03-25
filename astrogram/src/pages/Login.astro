@@ -1,6 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
 
+const token = Astro.cookies.get("token")?.value;
+if (token) {
+  return Astro.redirect("/MyAccount");
+}
+
 if (Astro.request.method === "POST") {
   try {
     const data = await Astro.request.formData();

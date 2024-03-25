@@ -4,7 +4,11 @@ import Picture from "../../components/Picture.astro";
 const { hashtag } = Astro.params;
 
 const url = 'http://localhost:3000/api';
-const token = Astro.cookies.get('token').value;
+const token = Astro.cookies.get('token')?.value;
+
+if(!token){
+    return Astro.redirect('/Login');
+}
 
 let imagesWithHashTag = [];
 let allImagesWithHashTag = await fetch(`${url}/images/${hashtag}`, {
@@ -15,7 +19,6 @@ let allImagesWithHashTag = await fetch(`${url}/images/${hashtag}`, {
 })
 
 imagesWithHashTag = await allImagesWithHashTag.json();
-
 ---
 
 <Layout title="Welcome to Astrogram">

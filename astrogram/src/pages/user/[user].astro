@@ -3,29 +3,47 @@ import Picture from "../../components/Picture.astro";
 import Layout from "../../layouts/Layout.astro";
 
 const { user } = Astro.params;
-const url = 'http://localhost:3000/api';
+const url = "http://localhost:3000/api";
 
-
-let userName = '';
+let userName = "";
 let imagesUser = [];
+let isCorrect = "";
 
-const token = Astro.cookies.get('token').value;
-const userFetch = await fetch(`${url}/users/${user}`, {
-  method: 'GET',
+const token = Astro.cookies.get("token")?.value;
+
+if (!token) {
+  return Astro.redirect("/Login");
+}
+
+const isCheckToken = await fetch(`${url}/refresh`, {
+  method: "GET",
   headers: {
     Authorization: `Bearer ${token}`,
-  }
+  },
 });
-userName = await userFetch.json();
 
-const myPicures = await fetch(`${url}/user/${user}/images`, {
-  method: 'GET',
-  headers: {
-    Authorization: `Bearer ${token}`,
-  }
-})
+isCorrect = await isCheckToken.json();
 
-imagesUser = await myPicures.json();
+if (isCorrect?.id) {
+  const userFetch = await fetch(`${url}/users/${user}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  userName = await userFetch.json();
+
+  const myPicures = await fetch(`${url}/user/${user}/images`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  imagesUser = await myPicures.json();
+} else {
+  return Astro.redirect("/login");
+}
 ---
 
 <Layout title="Welcome to Astrogram">
@@ -62,6 +80,6 @@ imagesUser = await myPicures.json();
       <h1 class="text-center text-white">{userName.name}</h1>
     </div>
     {/* My pictures */}
-    {imagesUser?.map(image => <Picture image={image} />)}
+    {imagesUser?.map((image) => <Picture image={image} />)}
   </div>
 </Layout>

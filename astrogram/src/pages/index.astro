@@ -1,27 +1,42 @@
 ---
 import Layout from "../layouts/Layout.astro";
-// import Index from "../pages/index.astro";
 import Picture from "./../components/Picture.astro";
 
 const url = "http://localhost:3000/api";
 
 let imagesUser = [];
+let isCorrect = "";
 
-const token = Astro.cookies.get("token").value;
+const token = Astro.cookies.get("token")?.value;
+if (!token) {
+  return Astro.redirect("/Login");
+}
+
 try {
-  const images = await fetch(`${url}/allimages`, {
+  const isCheckToken = await fetch(`${url}/refresh`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
 
-  imagesUser = await images.json();
+  isCorrect = await isCheckToken.json();
+
+  if (isCorrect?.id) {
+    const images = await fetch(`${url}/allimages`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    imagesUser = await images.json();
+  } else {
+    Astro.redirect("/login");
+  }
 } catch (error) {
   console.log(error);
 }
 ---
-
 
 <Layout title="feed">
   <div class="">

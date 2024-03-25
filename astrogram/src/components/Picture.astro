@@ -8,7 +8,7 @@ const url = "http://localhost:3000/api";
 let id = "";
 
 try {
-  const token = Astro.cookies.get("token").value;
+  const token = Astro.cookies.get("token")?.value;
   const resUserId = await fetch(`${url}/users/` + userId, {
     method: "GET",
     headers: {
@@ -22,7 +22,7 @@ try {
 ---
 
 <div class="bg-[#0F1218] h-screen px-2 py-4">
-  <div class="flex gap-1 items-center py-2">
+  <div class="flex items-center py-2">
     <svg
       class="w-7 h-7 fill-white"
       width="24px"

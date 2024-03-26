@@ -6,8 +6,22 @@ const url = "https://ricardhernandez.com/api";
 
 //Fetch para mirar el nombre del usuario de esa foto
 let id = "";
+let token = "";
+let myUserId = "";
+
 try {
-  const token = Astro.cookies.get("token")?.value;
+  token = Astro.cookies.get("token")?.value;
+  const userid = await fetch(`${url}/refresh`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    }
+  });
+
+  myUserId = await userid.json();
+  myUserId = myUserId?.id;
+  console.log(myUserId)
+
   const resUserId = await fetch(`${url}/users/` + image?.userId, {
     method: "GET",
     headers: {
@@ -16,12 +30,13 @@ try {
   });
   id = await resUserId.json();
 } catch (error) {
-  console.log(error);
+  console.log({error: error});
 }
 
-// function quitSpaces {
+const checkIfItIsMyImg = () => {
+  return image.userId === myUserId
+}
 
-// }
 ---
 
 <div class="bg-[#0F1218] h-screen px-4 py-4">
@@ -55,7 +70,7 @@ try {
       >
       <a href={`/user/${image?.userName}`} class="text-white">{image.userName}</a>
     </div>
-    <OptionsImg client:load/>
+    {checkIfItIsMyImg() === true ? <OptionsImg client:load/> : <></>}
   </div>
   
   <img

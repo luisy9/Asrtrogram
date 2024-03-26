@@ -176,7 +176,6 @@ app.post(
 app.get("/api/images", checkToken, (req, res) => {
   const userId = req.userId;
   const userImages = readImages().filter((image) => image.userId === userId);
-  console.log(userImages);
   res.json(userImages);
 });
 

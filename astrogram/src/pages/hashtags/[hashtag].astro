@@ -3,7 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import Picture from "../../components/Picture.astro";
 const { hashtag } = Astro.params;
 
-const url = 'http://localhost:3000/api';
+const url = 'https://ricardhernandez.com/api';
 const token = Astro.cookies.get('token')?.value;
 
 if(!token){
@@ -11,12 +11,14 @@ if(!token){
 }
 
 let imagesWithHashTag = [];
-let allImagesWithHashTag = await fetch(`${url}/images/${hashtag}`, {
+let allImagesWithHashTag = await fetch(`${url}/images/hashtag/${hashtag}`, {
     method: 'GET',
     headers: {
         Authorization: `Bearer ${token}`,
     }
 })
+
+console.log(allImagesWithHashTag)
 
 imagesWithHashTag = await allImagesWithHashTag.json();
 ---

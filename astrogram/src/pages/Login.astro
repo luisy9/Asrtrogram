@@ -12,7 +12,7 @@ if (Astro.request.method === "POST") {
     const name = data.get("name");
     const password = data.get("password");
 
-    const url = "http://localhost:3000/api";
+    const url = "https://ricardhernandez.com/api";
 
     //Consulta POST a la api para hacer un login
     const login = await fetch(`${url}/login`, {

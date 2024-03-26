@@ -3,7 +3,7 @@ import Picture from "../../components/Picture.astro";
 import Layout from "../../layouts/Layout.astro";
 
 const { user } = Astro.params;
-const url = "http://localhost:3000/api";
+const url = "https://ricardhernandez.com/api";
 
 let userName = "";
 let imagesUser = [];
@@ -25,15 +25,15 @@ const isCheckToken = await fetch(`${url}/refresh`, {
 isCorrect = await isCheckToken.json();
 
 if (isCorrect?.id) {
-  const userFetch = await fetch(`${url}/users/${user}`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  userName = await userFetch.json();
+  // const userFetch = await fetch(`${url}/user/${user}`, {
+  //   method: "GET",
+  //   headers: {
+  //     Authorization: `Bearer ${token}`,
+  //   },
+  // });
+  // userName = await userFetch.json();
 
-  const myPicures = await fetch(`${url}/user/${user}/images`, {
+  const myPicures = await fetch(`${url}/user/${isCorrect.id}/images`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -77,7 +77,7 @@ if (isCorrect?.id) {
             stroke-linejoin="round"></path></svg
         >
       </div>
-      <h1 class="text-center text-white">{userName.name}</h1>
+      <h1 class="text-center text-white">{isCorrect.name}</h1>
     </div>
     {/* My pictures */}
     {imagesUser?.map((image) => <Picture image={image} />)}

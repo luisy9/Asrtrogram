@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const PopUpUpload = ({ setPopUp }) => {
+export const PopUpUpload = ({ setPopUp, token }) => {
   const [hashtag, setHashTag] = useState([]);
   const [errorValidation, setErrorValidation] = useState(null);
   const [nameHashtag, setNameHashtag] = useState("");
@@ -40,25 +40,27 @@ export const PopUpUpload = ({ setPopUp }) => {
   const onSubmitImage = async (event) => {
     event.preventDefault();
 
-    const url = "http://localhost:3000/api";
+    const url = "https://ricardhernandez.com/api";
 
     const data = new FormData();
     const tags = hashtag;
     const file = event.target?.elements?.image.files[0];
-    data.append("image", file);
-    data.append("hashtags", tags);
-    console.log(hashtag);
-    data.append("descripcion", descripcion);
+    data.append("file", file);
+    data.append("hashtags", tags.join(' '));
+    // data.append("descripcion", descripcion);
 
     //Hacer la peticion para hacer el post de upload de la imagen
     const opcions = {
       method: "POST",
       body: data,
-      credentials: "include",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+      // credentials: "include",
     };
 
     try {
-      const res = await fetch(`${url}/uploadimg`, opcions)
+      const res = await fetch(`${url}/upload`, opcions)
         .then((res) => res.json())
         .then((images) => setPopUp(false))
         .catch((error) => console.log(error));

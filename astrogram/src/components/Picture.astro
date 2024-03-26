@@ -20,7 +20,6 @@ try {
 
   myUserId = await userid.json();
   myUserId = myUserId?.id;
-  console.log(myUserId)
 
   const resUserId = await fetch(`${url}/users/` + image?.userId, {
     method: "GET",

@@ -60,7 +60,8 @@ const FooterNavBar = ({ popUp, setPopUp }) => {
         md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white
          md:dark:hover:text-blue-500 dark:hover:bg-gray-700
          dark:hover:text-white md:dark:hover:bg-transparent"
-            onClick={() => setPopUp(true)}
+            // onClick={() => setPopUp(true)}
+            onClick={() => window.location.href="/uploadImg"}
           >
             <svg
               className="w-6 h-6 text-gray-800 dark:text-white"

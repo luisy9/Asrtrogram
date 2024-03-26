@@ -6,7 +6,7 @@ export const FooterComponent = ({token}) => {
   const [popUp, setPopUp] = useState(false);
 
   return (
-    <main>
+    <main className=''>
       {popUp ? <PopUpUpload setPopUp={setPopUp} token={token} /> : null}
       <div className='w-full h-full'>
         <FooterNavBar popUp={popUp} setPopUp={setPopUp} />

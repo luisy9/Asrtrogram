@@ -2,7 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import Picture from "../../components/Picture.astro";
 const { hashtag } = Astro.params;
-
+console.log(hashtag)
 const url = 'https://ricardhernandez.com/api';
 const token = Astro.cookies.get('token')?.value;
 
@@ -17,8 +17,6 @@ let allImagesWithHashTag = await fetch(`${url}/images/hashtag/${hashtag}`, {
         Authorization: `Bearer ${token}`,
     }
 })
-
-console.log(allImagesWithHashTag)
 
 imagesWithHashTag = await allImagesWithHashTag.json();
 ---

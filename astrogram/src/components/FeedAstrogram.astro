@@ -1,0 +1,32 @@
+---
+import Index from "../pages/index.astro";
+import Picture from "./Picture.astro";
+
+const url = "http://localhost:3000/api";
+
+let imagesUser = [];
+
+const token = Astro.cookies.get("token").value;
+
+try {
+  const images = await fetch(`${url}/allimages`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  imagesUser = await images.json();
+} catch (error) {
+  console.log(error);
+}
+---
+
+<Index title="feed">
+  <div class="h-full">
+    <div class="flex flex-col gap-4">
+      <h1 class="text-white">hola</h1>
+      {imagesUser?.map((image) => <Picture image={image} />)}
+    </div>
+  </div>
+</Index> 

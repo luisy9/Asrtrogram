@@ -70,7 +70,7 @@ const checkIfItIsMyImg = () => {
       >
       <a href={`/user/${image?.userName}`} class="text-white">{image.userName}</a>
     </div>
-    {checkIfItIsMyImg() === true ? <OptionsImg client:load/> : <></>}
+    {checkIfItIsMyImg() === true ? <OptionsImg client:load /> : <></>}
   </div>
   
   <img

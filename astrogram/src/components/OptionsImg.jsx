@@ -1,22 +1,22 @@
 import { useState } from "react";
 
 const OptionsImg = () => {
-  const url = 'https://ricardhernandez.com/api';
+  const url = "https://ricardhernandez.com/api";
   const [popUp, setPopUp] = useState(false);
 
   const toggleModal = () => {
     setPopUp(!popUp);
-  }
+  };
 
   const deletePost = () => {
-    console.log('delete img')
+    console.log("delete img");
     // fetch(`${url}/`)
-  }
+  };
 
   const updatePost = () => {
-    console.log('update img')
+    console.log("update img");
     // fetch(`${url}/`)
-  }
+  };
 
   return (
     <div className="flex flex-col">
@@ -53,11 +53,15 @@ const OptionsImg = () => {
         ></path>
       </svg>
       {popUp === true ? (
-        <div className="bg-black w-full text-white w-30 right-3 z-50 absolute top-32 py-3 border-none rounded-md px-5 flex">
-          <ul>
-            <li className="py-1">Update</li>
-            <li className="py-1 text-red-500" onClick={deletePost}>Delete</li>
-          </ul>
+        <div className="relative">
+          <div className="bg-black w-20 text-white right-0 z-50 absolute py-3 border-none rounded-md pl-3 flex">
+            <ul className="">
+              <li className="py-1">Update</li>
+              <li className="py-1 text-red-500" onClick={deletePost}>
+                Delete
+              </li>
+            </ul>
+          </div>
         </div>
       ) : null}
     </div>
